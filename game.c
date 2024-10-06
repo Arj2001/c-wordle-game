@@ -51,6 +51,8 @@ int isValidWord(char guess[LETTERCOUNT+1]);
 
 // game startup
 int game(){
+
+    char guess[LETTERCOUNT+1];
     int gameId = loadGameSetup();
 
     printf("Guess the %d letter word\n", LETTERCOUNT);
@@ -87,8 +89,6 @@ int game(){
 
 int main(){
 
-    char guess[LETTERCOUNT+1];
-
     char solutionHard[] = "lists\\solution.txt";
     char solutionEasy[] = "lists\\solution-easy.txt";
 
@@ -98,6 +98,8 @@ int main(){
         printf("Error in reading file\n");
         return EXIT_FAILURE;
     }
+
+    game();
 
 
     
