@@ -1,4 +1,4 @@
 ## Worlde Game
 
-A simple implentation of wordle game using c
+A simple implementation of wordle game using c
 
