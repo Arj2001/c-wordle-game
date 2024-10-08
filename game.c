@@ -50,6 +50,45 @@ int loadGameSetup();
 int isValidWord(char guess[LETTERCOUNT+1]);
 
 // game startup
+int game();
+
+int main(){
+
+    char solutionHard[] = "lists\\solution-hard.txt";
+    char solutionEasy[] = "lists\\solution-easy.txt";
+
+    fpAll = fopen("lists\\all.txt", "r");
+
+    int ch;
+    char solution[25];
+    while(1){
+        printf("Choose difficulty\n1.Easy\n2.Difficult\n3.Exit\n");
+        scanf("%d",&ch);
+        switch (ch){
+            case 1:
+                strcpy(solution, solutionEasy);
+                break;
+            case 2:
+                strcpy(solution, solutionHard);
+                break;
+            case 3:
+                return EXIT_SUCCESS;
+            default:
+                printf("Invalid choice\n");
+                break;
+        }
+
+        fpSol = fopen(solution,"r");
+        if(fpAll == NULL || fpSol == NULL){
+            printf("Error in reading file\n");
+            return EXIT_FAILURE;
+        }
+        game();
+        getch();
+    }
+    return 0;
+}
+
 int game(){
 
     char guess[LETTERCOUNT+1];
@@ -58,9 +97,9 @@ int game(){
     printf("Guess the %d letter word\n", LETTERCOUNT);
     printf("%sRED%s color means the letter is not in the word\n",REDC, DEFAULTC);
     printf("%sYEllOW%s color means the letter is in the word but different position\n",YELLOWC, DEFAULTC);
-    printf("%sGREEN%s color means the letter is in the word and in correct position\n",GREENC, DEFAULTC);
+    printf("%sGREEN%s color means the letter is in the word and in correct position\n\n",GREENC, DEFAULTC);
 
-    printf("Game id: %d\n", gameId);
+    // printf("Game id: %d\n", gameId);
     int chance = 0;
 
     while( chance < CHANCES){
@@ -85,29 +124,6 @@ int game(){
         printf("%sYou lost!%s", REDC, DEFAULTC);
         printf("The word was %s%s%s",GREENC, gameWord,DEFAULTC );
     }
-}
-
-int main(){
-
-    char solutionHard[] = "lists\\solution.txt";
-    char solutionEasy[] = "lists\\solution-easy.txt";
-
-    fpAll = fopen("lists\\all.txt", "r");
-    fpSol = fopen("lists\\solution-easy.txt","r");
-    if(fpAll == NULL || fpSol == NULL){
-        printf("Error in reading file\n");
-        return EXIT_FAILURE;
-    }
-
-    game();
-
-
-    
-    fclose(fpAll);
-    fclose(fpSol);
-
-    getch();
-    return 0;
 }
 
 void printGuess(char guess[LETTERCOUNT+1]){
